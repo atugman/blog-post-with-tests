@@ -63,12 +63,12 @@ describe('API resource', function() {
   	let res;
   	return chai.request(app)
       .get('/posts')
-      .then(_res) {
+      .then(_res => {
       	res = res;
         res.should.have.status(200);
         res.body.should.have.length.of.at.least(1);
         return BlogPost.count();
-    }
+    })
   		.then(count => {
   			res.body.should.have.length.of(count);
   		});
@@ -124,7 +124,7 @@ describe('POST endpoint', function(){
       .post('/posts')
       .send(newPost)
       .then(function(res) {
-        res.should.have.status(200);
+        res.should.have.status(201);
         res.should.be('json');
         res.body.should.be.a('object');
         res.body.should.include.keys('id', 'title', 'content', 'author', 'created');
